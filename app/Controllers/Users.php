@@ -25,9 +25,7 @@ class Users extends BaseController
     }
 
     public function getUsers() {
-        if (!$this->request->isAJAX()) {
-            return redirect()->back();
-        }
+        if (!$this->request->isAJAX()) return redirect()->back();
 
         $attr = [
             'id',
@@ -37,9 +35,24 @@ class Users extends BaseController
             'thumbnail',
         ];
 
-        $userList = $this->userModel->select($attr)->findAll();
+        $usersList = $this->userModel->select($attr)->findAll();
 
-        echo "<pre>";
-        print_r($userList);
+        // Receive the object array users to ajax DataTable
+        $data = [];
+
+        foreach ($usersList as $user) {
+            $data[] = [
+                'imagem' => $user->thumbnail,
+                'nome' => esc($user->name),
+                'email' => esc($user->email),
+                'ativo' => ($user->active == true ? 'Ativo' : '<span class="text-warning">Inativo</span>'),
+            ];
+        }
+
+        $response = [
+            'data' => $data,
+        ];
+
+        return $this->response->setJSON($response);
     }
 }
