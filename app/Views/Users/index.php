@@ -29,4 +29,22 @@
 <?php echo $this->endSection('content'); ?>
 
 <?php echo $this->section('scripts'); ?>
+<script>
+    new DataTable('#ajaxTable', {
+        ajax: '<?php echo base_url('users/getUsers'); ?>',
+        columns: [{
+                data: 'imagem'
+            },
+            {
+                data: 'nome'
+            },
+            {
+                data: 'email'
+            },
+            {
+                data: 'ativo'
+            },
+        ]
+    });
+</script>
 <?php echo $this->endSection('scripts'); ?>
