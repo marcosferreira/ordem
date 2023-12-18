@@ -78,6 +78,7 @@
         ],
         "deferRender": true,
         "processing": true,
+        "responsive": true,
     });
 </script>
 <?php echo $this->endSection('scripts'); ?>
