@@ -79,6 +79,7 @@
         "deferRender": true,
         "processing": true,
         "responsive": true,
+        "pagingType": window.innerWidth < 768 ? "simple" : "simple_numbers"
     });
 </script>
 <?php echo $this->endSection('scripts'); ?>
