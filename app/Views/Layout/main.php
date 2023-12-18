@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="<?php echo base_url('assets'); ?>/css/custom.css">
+
+    <link href="<?php echo base_url('assets'); ?>/DataTables/datatables.min.css" rel="stylesheet">
     <!-- Favicon-->
     <link rel="shortcut icon" href="<?php echo base_url('assets'); ?>/img/favicon.ico">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
@@ -243,7 +245,8 @@
     <script src="<?php echo base_url('assets'); ?>/vendor/jquery/jquery.min.js"></script>
     <script src="<?php echo base_url('assets'); ?>/vendor/popper.js/umd/popper.min.js"> </script>
     <script src="<?php echo base_url('assets'); ?>/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="<?php echo base_url('assets'); ?>/js/front.js"></script>
+    <script src="<?php echo base_url('assets'); ?>/js/front.js"></script> 
+    <script src="<?php echo base_url('assets'); ?>/DataTables/datatables.min.js"></script>
 
     <!-- render section JS to views extends this layout -->
     <?php echo $this->renderSection('scripts'); ?>
