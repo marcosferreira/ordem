@@ -223,8 +223,10 @@
                 </div>
             </div>
             <section class="no-padding-top no-padding-bottom">
-                <!-- render section CONTENT to views extends this layout -->
-                <?php echo $this->renderSection('content'); ?>
+                <div class="container-fluid">
+                    <!-- render section CONTENT to views extends this layout -->
+                    <?php echo $this->renderSection('content'); ?>
+                </div>
             </section>
 
             <footer class="footer">
