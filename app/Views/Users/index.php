@@ -75,7 +75,9 @@
             {
                 data: 'ativo'
             },
-        ]
+        ],
+        "deferRender": true,
+        "processing": true,
     });
 </script>
 <?php echo $this->endSection('scripts'); ?>
