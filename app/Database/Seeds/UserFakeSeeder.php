@@ -13,7 +13,7 @@ class UserFakeSeeder extends Seeder
         $userModel = new UserModel();
         $fake = Factory::create();
 
-        $usersCreate = 50;
+        $usersCreate = 50000;
 
         $userList = [];
 
@@ -22,7 +22,7 @@ class UserFakeSeeder extends Seeder
                 'name'          => $fake->unique()->name(),
                 'email'          => $fake->unique()->email(),
                 'password_hash' => '123456', // change the fake seeder when your hash
-                'active'        => true,
+                'active'        => $fake->numberBetween(0,1),
             ]);
         }
 
@@ -33,7 +33,7 @@ class UserFakeSeeder extends Seeder
         $userModel->skipValidation(true) // bypass in validation
                   ->protect(false) // bypass in protect allowedFields
                   ->insertBatch($userList);
-
+        echo "\n";
         echo "$usersCreate criados com sucesso";
     }
 }
