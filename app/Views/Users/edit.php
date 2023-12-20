@@ -18,10 +18,11 @@
                 </div>
 
                 <?php echo form_open('/users', ['id' => 'form'], ['id' => "$user->id"]); ?>
-                    <div class="form-group">
-                        <input type="submit" value="Salvar" class="btn btn-primary">
-                        <a href="<?php echo base_url("users/edit/$user->id") ?>" class="btn btn-secondary">Voltar</a>
-                    </div>
+                <?php echo $this->include('Users/inc/form'); ?>
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="btn btn-primary">
+                    <a href="<?php echo base_url("users/edit/$user->id") ?>" class="btn btn-secondary">Voltar</a>
+                </div>
                 <?php echo form_close(); ?>
             </div>
         </div>
