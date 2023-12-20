@@ -27,7 +27,7 @@ class Users extends BaseController
 
     public function getUsers()
     {
-        if (!$this->request->isAJAX()) return redirect()->back();
+        if (!$this->request->isAJAX()) return redirect()->to('users');
 
         $attr = [
             'id',
@@ -90,6 +90,22 @@ class Users extends BaseController
         ];
 
         return view('Users/edit', $data);
+    }
+
+    public function update() {
+        if (!$this->request->is('ajax')) return redirect()->to('users');
+
+        $res = [];
+        $res['csrf_token'] = csrf_hash();
+        $res['info'] = "Essa é uma mensagem de informação";
+
+        return $this->response->setJSON($res);
+
+        $post = $this->request->getPost();
+
+        echo "<pre>";
+        print_r($post);
+        exit;
     }
 
     /**
