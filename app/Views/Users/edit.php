@@ -11,21 +11,18 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="block">
-            <div class="title"><strong class="d-block"></strong><span class="d-block">Lorem ipsum dolor sit amet consectetur.</span></div>
+            <div class="title"><strong class="d-block"></strong><span class="d-block">Atualizar dados do usuário <b><?php echo $user->name; ?></b>.</span></div>
             <div class="block-body">
-                <form action="<?php echo base_url("users/edit/$user->id") ?>" method="post">
-                    <div class="form-group">
-                        <label class="form-control-label">Nome</label>
-                        <input type="text" name="name" placeholder="Nome do usuário" class="form-control" value="<?php echo $user->name; ?>">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-control-label">E-mail</label>
-                        <input type="email" name="email" placeholder="Email Address" class="form-control" value="<?php echo $user->email; ?>">
-                    </div>
+                <div id="response">
+
+                </div>
+
+                <?php echo form_open('/users', ['id' => 'form'], ['id' => "$user->id"]); ?>
                     <div class="form-group">
                         <input type="submit" value="Salvar" class="btn btn-primary">
+                        <a href="<?php echo base_url("users/edit/$user->id") ?>" class="btn btn-secondary">Voltar</a>
                     </div>
-                </form>
+                <?php echo form_close(); ?>
             </div>
         </div>
     </div>

@@ -24,8 +24,9 @@
             <hr class="border-secondary">
 
             <h5 class="card-title"><?php echo $user->name; ?></h5>
-            <p class="card-text">Criado <?php echo $user->created_at; ?></p>
-            <p class="card-text">Atualizado <?php echo $user->updated_at; ?></p>
+            <p class="card-text"><?php echo esc($user->email); ?></p>
+            <p class="card-text">Criado <?php echo $user->created_at->humanize(); ?></p>
+            <p class="card-text">Atualizado <?php echo $user->updated_at->humanize(); ?></p>
 
             <div class="btn-group">
                 <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

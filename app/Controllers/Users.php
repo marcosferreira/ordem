@@ -80,6 +80,7 @@ class Users extends BaseController
             ];
 
             $this->userModel->update($id, $userUpdate);
+            return redirect()->to("users/show/$id");
         }
 
         $user = $this->showOr404($id);
