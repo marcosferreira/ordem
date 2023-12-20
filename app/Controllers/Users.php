@@ -71,6 +71,26 @@ class Users extends BaseController
         return view('Users/show', $data);
     }
 
+    public function edit(int $id = null)
+    {
+        if ($this->request->is('post')) {
+            $userUpdate = [
+                'name' => $this->request->getVar('name'),
+                'email' => $this->request->getVar('email'),
+            ];
+
+            $this->userModel->update($id, $userUpdate);
+        }
+
+        $user = $this->showOr404($id);
+        $data = [
+            'title' => "Detalhes do usuário ".esc($user->name),
+            'user' => $user,
+        ];
+
+        return view('Users/edit', $data);
+    }
+
     /**
      * Method get user
      * 
