@@ -33,7 +33,7 @@
 <?php echo $this->section('scripts'); ?>
 <script>
     $(document).ready(function() {
-        $('#form').on('submit', function(e){
+        $('#form').on('submit', function(e) {
             e.preventDefault();
             $.ajax({
                 type: 'POST',
@@ -43,20 +43,40 @@
                 contentType: false,
                 cache: false,
                 processData: false,
-                beforeSend:  function() {
+                beforeSend: function() {
                     $('#response').html('');
                     $('#btn-save').val('Por favor aguarde');
                 },
                 success: function(response) {
                     $('#btn-save').val('Salvar');
                     $('#btn-save').removeAttr('disabled');
-                    if (!response.erro) {
-                        $('[name=csrf_service_order]').val(response.csrf_token);
-                        if (response.info) {
-                            $('#response').html('<div class="alert alert-primary">' + response.info + '</div>')
-                        }
-                    } else {
+
+                    $('[name=csrf_service_order]').val(response.csrf_token);
+
+                    if (response.error) {
                         // Existem erros de validação
+                        $('#response').html('<div class="alert alert-danger">' + response.error + '</div>');
+
+                        if (response.errors_model) {
+                            $.each(response.errors_model, function(key, value) {
+                                $('#response').append(`
+                                    <ul class="list-unstyled">
+                                        <li class="text-danger">
+                                            ${value}
+                                        </li>
+                                    </ul>
+                                `);
+                            });
+                        }
+                        return;
+                    }
+
+                    if (response.info) {
+                        $('#response').html('<div class="alert alert-primary">' + response.info + '</div>')
+                    } else {
+                        // Tudo certo com a atualização do usuário
+                        // Podemos agora redirecioná-lo tranquilamente
+                        window.location.href = "<?php echo base_url("users/show/$user->id"); ?>";
                     }
                 },
                 error: function() {
