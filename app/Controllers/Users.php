@@ -109,12 +109,6 @@ class Users extends BaseController
             // Se isto não for feito, o hashPassword() fará o hash de uma string vazia.
             unset($post['password']);
             unset($post['password_confirmation']);
-        } else {
-            // compara se a senha digitada e a senha confirmada são identicas
-            if (!($post['password'] == $post['password_confirmation'])) {
-                $res['info'] = "Senhas não são iguais, tente novamente";
-                return $this->response->setJSON($res);
-            }
         }
 
         // Valida a instância de usuário
