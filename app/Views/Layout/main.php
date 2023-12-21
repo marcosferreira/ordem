@@ -226,6 +226,8 @@
             </div>
             <section class="no-padding-top no-padding-bottom">
                 <div class="container-fluid">
+                    <?php echo $this->include('Layout/inc/message'); ?>
+
                     <!-- render section CONTENT to views extends this layout -->
                     <?php echo $this->renderSection('content'); ?>
                 </div>
