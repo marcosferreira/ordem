@@ -37,12 +37,24 @@ class UserModel extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
+    protected $beforeInsert   = ['passwordHash'];
     protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
+    protected $beforeUpdate   = ['passwordHash'];
     protected $afterUpdate    = [];
     protected $beforeFind     = [];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    protected function passwordHash(array $data)
+    {
+        if (isset($data['data']['password'])) {
+            $data['data']['password_hash'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
+
+            unset($data['data']['password']);
+            unset($data['data']['password_confirmation']);
+        }
+
+        return $data;
+    }
 }
