@@ -83,7 +83,11 @@
                     alert("Não foi possível processar a solicitação, por favor entre em contato com o suporte técnico.");
                 }
             });
-        })
+        });
+
+        $("#form").submit(function() {
+            $(this).find(":submit").attr("disabled", "disabled");
+        });
     });
 </script>
 <?php echo $this->endSection('scripts'); ?>
