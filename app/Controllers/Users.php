@@ -64,7 +64,7 @@ class Users extends BaseController
         $user = $this->showOr404($id);
 
         $data = [
-            'title' => "Detalhes do usuário ".esc($user->name),
+            'title' => "Detalhes do usuário " . esc($user->name),
             'user' => $user,
         ];
 
@@ -85,14 +85,15 @@ class Users extends BaseController
 
         $user = $this->showOr404($id);
         $data = [
-            'title' => "Detalhes do usuário ".esc($user->name),
+            'title' => "Detalhes do usuário " . esc($user->name),
             'user' => $user,
         ];
 
         return view('Users/edit', $data);
     }
 
-    public function update() {
+    public function update()
+    {
         if (!$this->request->is('ajax')) return redirect()->to('users');
 
         $res = [];
@@ -103,9 +104,18 @@ class Users extends BaseController
         // Recupera o post da requisição
         $post = $this->request->getPost();
 
-        // ESTE É UM BYPASS TEMP
-        unset($post['password']);
-        unset($post['password_confirmation']);
+        // Se o campo senha estiver vazio, remove os atributos desnecessários
+        if (empty($post['password'])) {
+            // Se isto não for feito, o hashPassword() fará o hash de uma string vazia.
+            unset($post['password']);
+            unset($post['password_confirmation']);
+        } else {
+            // compara se a senha digitada e a senha confirmada são identicas
+            if (!($post['password'] == $post['password_confirmation'])) {
+                $res['info'] = "Senhas não são iguais, tente novamente";
+                return $this->response->setJSON($res);
+            }
+        }
 
         // Valida a instância de usuário
         $user = $this->showOr404($post['id']);
@@ -113,12 +123,12 @@ class Users extends BaseController
         // Preenche os atributos do usuário com os valores do post
         $user->fill($post);
 
-        if($user->hasChanged() == false) {
+        if ($user->hasChanged() == false) {
             $res['info'] = "Não há dados para serem atualizados";
             return $this->response->setJSON($res);
         }
 
-        if($this->userModel->protect(false)->save($user)) {
+        if ($this->userModel->protect(false)->save($user)) {
             // VAMOS CONHECER MENSAGENS FLASH DATA
             return $this->response->setJSON($res);
         }
@@ -130,7 +140,7 @@ class Users extends BaseController
         //     'email'     => 'Email inválido',
         //     'password'  => 'A senha é muito curta',
         // ];
-        
+
 
         $res['error'] = "Por favor verifique os erros de abaixo e tente novamente";
         $res['errors_model'] = $this->userModel->errors();
@@ -150,7 +160,7 @@ class Users extends BaseController
         if (!$id || !$user = $this->userModel->withDeleted(true)->find($id)) {
             throw PageNotFoundException::forPageNotFound("Usuário $id não encontrado");
         }
-        
+
         return $user;
     }
 }
