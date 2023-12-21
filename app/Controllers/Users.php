@@ -96,23 +96,47 @@ class Users extends BaseController
         if (!$this->request->is('ajax')) return redirect()->to('users');
 
         $res = [];
-        
+
+        // Envia o hash do token do form
         $res['csrf_token']   = csrf_hash();
-        $res['info']         = "Essa é uma mensagem de informação";
-        $res['error']        = "Essa é uma mensagem de erro de validação";
-        $res['errors_model'] = [
-            'nome'      => 'O nome é obrigatório',
-            'email'     => 'Email inválido',
-            'password'  => 'A senha é muito curta',
-        ];
 
-        return $this->response->setJSON($res);
-
+        // Recupera o post da requisição
         $post = $this->request->getPost();
 
-        echo "<pre>";
-        print_r($post);
-        exit;
+        // ESTE É UM BYPASS TEMP
+        unset($post['password']);
+        unset($post['password_confirmation']);
+
+        // Valida a instância de usuário
+        $user = $this->showOr404($post['id']);
+
+        // Preenche os atributos do usuário com os valores do post
+        $user->fill($post);
+
+        if($user->hasChanged() == false) {
+            $res['info'] = "Não há dados para serem atualizados";
+            return $this->response->setJSON($res);
+        }
+
+        if($this->userModel->protect(false)->save($user)) {
+            // VAMOS CONHECER MENSAGENS FLASH DATA
+            return $this->response->setJSON($res);
+        }
+
+        // $res['info']         = "Essa é uma mensagem de informação";
+        // $res['error']        = "Essa é uma mensagem de erro de validação";
+        // $res['errors_model'] = [
+        //     'nome'      => 'O nome é obrigatório',
+        //     'email'     => 'Email inválido',
+        //     'password'  => 'A senha é muito curta',
+        // ];
+        
+
+        $res['error'] = "Por favor verifique os erros de abaixo e tente novamente";
+        $res['errors_model'] = $this->userModel->errors();
+
+        // Retorna para o ajax request
+        return $this->response->setJSON($res);
     }
 
     /**

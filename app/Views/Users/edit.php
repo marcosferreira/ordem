@@ -72,7 +72,7 @@
                     }
 
                     if (response.info) {
-                        $('#response').html('<div class="alert alert-primary">' + response.info + '</div>')
+                        $('#response').html('<div class="alert alert-primary">' + response.info + '</div>');
                     } else {
                         // Tudo certo com a atualização do usuário
                         // Podemos agora redirecioná-lo tranquilamente

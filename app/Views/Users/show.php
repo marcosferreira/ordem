@@ -27,6 +27,7 @@
             <p class="card-text"><?php echo esc($user->email); ?></p>
             <p class="card-text">Criado <?php echo $user->created_at->humanize(); ?></p>
             <p class="card-text">Atualizado <?php echo $user->updated_at->humanize(); ?></p>
+            <p class="card-text"><?php echo $user->active ? '<span class="text-success">Ativo</span>' : '<span class="text-danger">Inativo</span>'; ?></p>
 
             <div class="btn-group">
                 <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
