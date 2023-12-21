@@ -96,8 +96,15 @@ class Users extends BaseController
         if (!$this->request->is('ajax')) return redirect()->to('users');
 
         $res = [];
-        $res['csrf_token'] = csrf_hash();
-        $res['info'] = "Essa é uma mensagem de informação";
+        
+        $res['csrf_token']   = csrf_hash();
+        $res['info']         = "Essa é uma mensagem de informação";
+        $res['error']        = "Essa é uma mensagem de erro de validação";
+        $res['errors_model'] = [
+            'nome'      => 'O nome é obrigatório',
+            'email'     => 'Email inválido',
+            'password'  => 'A senha é muito curta',
+        ];
 
         return $this->response->setJSON($res);
 
