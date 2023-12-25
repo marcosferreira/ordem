@@ -11,6 +11,7 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="block">
+            <a class="btn btn-danger mb-2" href="<?php echo base_url('users/create') ?>">Criar novo usuário</a>
             <div class="table-responsive">
                 <table id="ajaxTable" class="table table-striped table-sm" style="width: 100%">
                     <thead>
