@@ -73,6 +73,34 @@ class Users extends BaseController
         return view('Users/create', $data);
     }
 
+    public function signup()
+    {
+        if (!$this->request->is('ajax')) return redirect()->to('users');
+
+        $res = [];
+
+        // Envia o hash do token do form
+        $res['csrf_token']   = csrf_hash();
+
+        // Recupera o post da requisição
+        $post = $this->request->getPost();
+
+        // Cria novo objeto da entidade usuário
+        $user = new User($post);
+
+        if ($this->userModel->protect(false)->save($user)) {
+            session()->setFlashdata('saved_successfully', 'Dados salvos com sucesso!'); 
+            $res['id'] = $this->userModel->getInsertID();
+            return $this->response->setJSON($res);
+        }
+
+        $res['error'] = "Por favor verifique os erros de abaixo e tente novamente";
+        $res['errors_model'] = $this->userModel->errors();
+
+        // Retorna para o ajax request
+        return $this->response->setJSON($res);
+    }
+
     public function show(int $id = null)
     {
         $user = $this->showOr404($id);
