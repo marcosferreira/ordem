@@ -39,7 +39,7 @@ class Users extends BaseController
             'thumbnail',
         ];
 
-        $usersList = $this->userModel->select($attr)->findAll();
+        $usersList = $this->userModel->select($attr)->orderBy('id', 'DESC')->findAll();
 
         // Receive the object array users to ajax DataTable
         $data = [];
