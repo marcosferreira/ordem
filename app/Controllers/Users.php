@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Entities\User;
+
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Users extends BaseController
@@ -57,6 +59,18 @@ class Users extends BaseController
         ];
 
         return $this->response->setJSON($response);
+    }
+
+    public function create()
+    {
+        $user = new User();
+
+        $data = [
+            'title' => "Criando novo usuário ",
+            'user' => $user,
+        ];
+
+        return view('Users/create', $data);
     }
 
     public function show(int $id = null)
