@@ -37,7 +37,7 @@
             e.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: '<?php echo base_url('users/update'); ?>',
+                url: '<?php echo base_url('users/signup'); ?>',
                 data: new FormData(this),
                 dataType: 'json',
                 contentType: false,
@@ -76,7 +76,7 @@
                     } else {
                         // Tudo certo com a atualização do usuário
                         // Podemos agora redirecioná-lo tranquilamente
-                        window.location.href = "<?php echo base_url("users/show/$user->id"); ?>";
+                        window.location.href = "<?php echo base_url("users/show/"); ?>" + response.id;
                     }
                 },
                 error: function() {
