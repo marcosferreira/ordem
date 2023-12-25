@@ -89,7 +89,8 @@ class Users extends BaseController
         $user = new User($post);
 
         if ($this->userModel->protect(false)->save($user)) {
-            session()->setFlashdata('saved_successfully', 'Dados salvos com sucesso!'); 
+            $btnCreateUser = anchor("users/create", 'Criar novo usuário', ['class' => 'btn btn-danger mt-2']);
+            session()->setFlashdata('saved_successfully', "Dados salvos com sucesso! <br> $btnCreateUser"); 
             $res['id'] = $this->userModel->getInsertID();
             return $this->response->setJSON($res);
         }
